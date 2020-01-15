@@ -1,3 +1,4 @@
+import { WordAction, WordActionType } from '../word/types';
 import { GuessesAction, GuessesActionType } from './types';
 
 interface GuessesState {
@@ -12,7 +13,7 @@ const initialState: GuessesState = {
 
 function guessesReducer(
   state = initialState,
-  action: GuessesAction,
+  action: GuessesAction | WordAction,
 ): GuessesState {
   switch (action.type) {
     case GuessesActionType.AddCorrect: {
@@ -23,6 +24,9 @@ function guessesReducer(
         ...state,
         incorrect: [...state.incorrect, action.payload.letter],
       };
+    }
+    case WordActionType.SetWord: {
+      return initialState;
     }
     default:
       return state;
