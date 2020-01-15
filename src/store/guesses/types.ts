@@ -1,12 +1,17 @@
+export enum GuessesActionType {
+  AddCorrect = 'Guesses/AddCorrect',
+  AddIncorrect = 'Guesses/AddIncorrect',
+}
+
 export interface GuessesAddIncorrectAction {
-  type: 'Guesses/AddIncorrect';
+  type: GuessesActionType.AddIncorrect;
   payload: {
     letter: string;
   };
 }
 
 export interface GuessesAddCorrectAction {
-  type: 'Guesses/AddCorrect';
+  type: GuessesActionType.AddCorrect;
   payload: {
     letter: string;
   };

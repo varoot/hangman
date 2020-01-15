@@ -1,4 +1,4 @@
-import { GuessesAction } from './types';
+import { GuessesAction, GuessesActionType } from './types';
 
 interface GuessesState {
   correct: string[];
@@ -15,10 +15,10 @@ function guessesReducer(
   action: GuessesAction,
 ): GuessesState {
   switch (action.type) {
-    case 'Guesses/AddCorrect': {
+    case GuessesActionType.AddCorrect: {
       return { ...state, correct: [...state.correct, action.payload.letter] };
     }
-    case 'Guesses/AddIncorrect': {
+    case GuessesActionType.AddIncorrect: {
       return {
         ...state,
         incorrect: [...state.incorrect, action.payload.letter],
