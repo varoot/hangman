@@ -1,4 +1,4 @@
-import { AnyAction } from 'redux';
+import { GuessesAction } from './types';
 
 interface GuessesState {
   correct: string[];
@@ -10,8 +10,23 @@ const initialState: GuessesState = {
   incorrect: [],
 };
 
-function guessesReducer(state = initialState, action: AnyAction): GuessesState {
-  return state;
+function guessesReducer(
+  state = initialState,
+  action: GuessesAction,
+): GuessesState {
+  switch (action.type) {
+    case 'Guesses/AddCorrect': {
+      return { ...state, correct: [...state.correct, action.payload.letter] };
+    }
+    case 'Guesses/AddIncorrect': {
+      return {
+        ...state,
+        incorrect: [...state.incorrect, action.payload.letter],
+      };
+    }
+    default:
+      return state;
+  }
 }
 
 export default guessesReducer;
