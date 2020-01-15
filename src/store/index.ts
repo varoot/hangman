@@ -4,6 +4,8 @@ import guesses from './guesses';
 
 const rootReducer = combineReducers({ guesses });
 
+export type RootState = ReturnType<typeof rootReducer>;
+
 const store = createStore(rootReducer, composeWithDevTools());
 
 export default store;

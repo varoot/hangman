@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Hangman from './components/Hangman';
 import Slot from './components/Slot';
 import Tile from './components/Tile';
+import { RootState } from './store';
 import { addCorrect, addIncorrect } from './store/guesses/actions';
 
 // Get an API key from https://random-word-api.herokuapp.com/
@@ -20,9 +21,13 @@ const App: FC = () => {
   const maxGuesses = 10;
   const [loadStatus, setLoadStatus] = useState(LoadStatus.Loading);
   const [word, setWord] = useState<string[]>([]);
-  const [correctGuesses, setCorrectGuesses] = useState<string[]>([]);
-  const [incorrectGuesses, setIncorrectGuesses] = useState<string[]>([]);
   const dispatch = useDispatch();
+  const correctGuesses = useSelector(
+    (state: RootState) => state.guesses.correct,
+  );
+  const incorrectGuesses = useSelector(
+    (state: RootState) => state.guesses.incorrect,
+  );
 
   const hasGameEnded = useMemo(() => {
     return (
@@ -68,10 +73,8 @@ const App: FC = () => {
         const letter = event.key.toLocaleUpperCase();
         if (word.includes(letter)) {
           dispatch(addCorrect(letter));
-          setCorrectGuesses([...correctGuesses, letter]);
         } else if (!incorrectGuesses.includes(letter)) {
           dispatch(addIncorrect(letter));
-          setIncorrectGuesses([...incorrectGuesses, letter]);
         }
       }
     };
@@ -85,8 +88,6 @@ const App: FC = () => {
 
   const clickHandler = useCallback(() => {
     console.log('button clicked');
-    setCorrectGuesses([]);
-    setIncorrectGuesses([]);
     fetchWord();
   }, []);
 
