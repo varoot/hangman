@@ -6,7 +6,7 @@ import Slot from './components/Slot';
 import Tile from './components/Tile';
 
 // Get an API key from https://random-word-api.herokuapp.com/
-const apiKey = 'WTG7ZHWX';
+const apiKey = '2K22E1EQ';
 
 enum LoadStatus {
   Ok = 'ok',
