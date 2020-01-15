@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import './App.css';
 import Hangman from './components/Hangman';
 import Slot from './components/Slot';
 import Tile from './components/Tile';
+import { addCorrect, addIncorrect } from './store/guesses/actions';
 
 // Get an API key from https://random-word-api.herokuapp.com/
 const apiKey = '2K22E1EQ';
@@ -20,6 +22,7 @@ const App: FC = () => {
   const [word, setWord] = useState<string[]>([]);
   const [correctGuesses, setCorrectGuesses] = useState<string[]>([]);
   const [incorrectGuesses, setIncorrectGuesses] = useState<string[]>([]);
+  const dispatch = useDispatch();
 
   const hasGameEnded = useMemo(() => {
     return (
@@ -64,8 +67,10 @@ const App: FC = () => {
         console.log('keypress', event.key);
         const letter = event.key.toLocaleUpperCase();
         if (word.includes(letter)) {
+          dispatch(addCorrect(letter));
           setCorrectGuesses([...correctGuesses, letter]);
         } else if (!incorrectGuesses.includes(letter)) {
+          dispatch(addIncorrect(letter));
           setIncorrectGuesses([...incorrectGuesses, letter]);
         }
       }
