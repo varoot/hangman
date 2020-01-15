@@ -4,13 +4,21 @@ import { getWordLetters } from '../word/selectors';
 
 export const maxGuesses = 10;
 
-export function getCorrectGuesses(state: RootState) {
-  return state.guesses.correct;
+export function getAllGuesses(state: RootState) {
+  return state.guesses.guesses;
 }
 
-export function getIncorrectGuesses(state: RootState) {
-  return state.guesses.incorrect;
-}
+export const getCorrectGuesses = createSelector(
+  getWordLetters,
+  getAllGuesses,
+  (word, allGuesses) => allGuesses.filter(letter => word.includes(letter)),
+);
+
+export const getIncorrectGuesses = createSelector(
+  getWordLetters,
+  getAllGuesses,
+  (word, allGuesses) => allGuesses.filter(letter => !word.includes(letter)),
+);
 
 export const getHasGameEnded = createSelector(
   getIncorrectGuesses,

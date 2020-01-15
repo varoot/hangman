@@ -1,5 +1,5 @@
 export interface WordState {
-  letters: string[];
+  letters: number[];
   status: LoadStatus;
 }
 

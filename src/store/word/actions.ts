@@ -16,7 +16,10 @@ export function setWord(status: LoadStatus, word: string): WordSetWordAction {
     type: WordActionType.SetWord,
     payload: {
       status,
-      letters: word.toLocaleUpperCase().split(''),
+      letters: word
+        .toLocaleUpperCase()
+        .split('')
+        .map(letter => letter.charCodeAt(0)),
     },
   };
 }

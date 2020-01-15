@@ -1,24 +1,15 @@
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
-import { getWordLetters } from '../word/selectors';
-import { getIncorrectGuesses } from './selectors';
+import { getAllGuesses } from './selectors';
 import {
   GuessesAction,
   GuessesActionType,
-  GuessesAddCorrectAction,
-  GuessesAddIncorrectAction,
+  GuessesAddLetterAction,
 } from './types';
 
-export function addCorrect(letter: string): GuessesAddCorrectAction {
+export function addLetter(letter: string): GuessesAddLetterAction {
   return {
-    type: GuessesActionType.AddCorrect,
-    payload: { letter },
-  };
-}
-
-export function addIncorrect(letter: string): GuessesAddIncorrectAction {
-  return {
-    type: GuessesActionType.AddIncorrect,
+    type: GuessesActionType.AddLetter,
     payload: { letter },
   };
 }
@@ -32,12 +23,9 @@ export function addGuess(
     }
 
     console.log('addGuess', letter);
-    const word = getWordLetters(getState());
     const upper = letter.toLocaleUpperCase();
-    if (word.includes(upper)) {
-      dispatch(addCorrect(upper));
-    } else if (!getIncorrectGuesses(getState()).includes(upper)) {
-      dispatch(addIncorrect(upper));
+    if (!getAllGuesses(getState()).includes(upper)) {
+      dispatch(addLetter(upper));
     }
   };
 }

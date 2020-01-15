@@ -1,9 +1,4 @@
-import { LoadStatus, WordAction, WordActionType } from './types';
-
-interface WordState {
-  letters: string[];
-  status: LoadStatus;
-}
+import { LoadStatus, WordAction, WordActionType, WordState } from './types';
 
 const initialState: WordState = {
   letters: [],
