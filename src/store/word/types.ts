@@ -5,7 +5,7 @@ export enum WordActionType {
 export interface WordSetWordAction {
   type: WordActionType.SetWord;
   payload: {
-    word: string[];
+    letters: string[];
   };
 }
 

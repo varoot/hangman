@@ -1,11 +1,11 @@
 import { WordAction, WordActionType } from './types';
 
 interface WordState {
-  word: string[];
+  letters: string[];
 }
 
 const initialState: WordState = {
-  word: [],
+  letters: [],
 };
 
 function wordReducer(state = initialState, action: WordAction): WordState {
