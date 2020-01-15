@@ -1,8 +1,9 @@
 import { combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import guesses from './guesses';
+import word from './word';
 
-const rootReducer = combineReducers({ guesses });
+const rootReducer = combineReducers({ guesses, word });
 
 export type RootState = ReturnType<typeof rootReducer>;
 
