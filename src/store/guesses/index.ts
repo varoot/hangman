@@ -1,9 +1,5 @@
 import { WordAction, WordActionType } from '../word/types';
-import { GuessesAction, GuessesActionType } from './types';
-
-interface GuessesState {
-  guesses: string[];
-}
+import { GuessesAction, GuessesActionType, GuessesState } from './types';
 
 const initialState: GuessesState = {
   guesses: [],

@@ -1,3 +1,7 @@
+export interface GuessesState {
+  guesses: string[];
+}
+
 export enum GuessesActionType {
   AddLetter = 'Guesses/AddLetter',
 }
