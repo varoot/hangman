@@ -1,11 +1,13 @@
-import { WordAction, WordActionType } from './types';
+import { LoadStatus, WordAction, WordActionType } from './types';
 
 interface WordState {
   letters: string[];
+  status: LoadStatus;
 }
 
 const initialState: WordState = {
   letters: [],
+  status: LoadStatus.Loading,
 };
 
 function wordReducer(state = initialState, action: WordAction): WordState {
