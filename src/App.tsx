@@ -7,6 +7,7 @@ import Slot from './components/Slot';
 import Tile from './components/Tile';
 import { RootState } from './store';
 import { addCorrect, addIncorrect } from './store/guesses/actions';
+import { setWord } from './store/word/actions';
 
 // Get an API key from https://random-word-api.herokuapp.com/
 const apiKey = '2K22E1EQ';
@@ -20,7 +21,6 @@ enum LoadStatus {
 const App: FC = () => {
   const maxGuesses = 10;
   const [loadStatus, setLoadStatus] = useState(LoadStatus.Loading);
-  const [word, setWord] = useState<string[]>([]);
   const dispatch = useDispatch();
   const correctGuesses = useSelector(
     (state: RootState) => state.guesses.correct,
@@ -28,6 +28,7 @@ const App: FC = () => {
   const incorrectGuesses = useSelector(
     (state: RootState) => state.guesses.incorrect,
   );
+  const word = useSelector((state: RootState) => state.word.letters);
 
   const hasGameEnded = useMemo(() => {
     return (
@@ -36,7 +37,7 @@ const App: FC = () => {
     );
   }, [incorrectGuesses, correctGuesses, word]);
 
-  async function fetchWord() {
+  const fetchWord = useCallback(async () => {
     console.log('fetching word...');
     setLoadStatus(LoadStatus.Loading);
 
@@ -47,7 +48,7 @@ const App: FC = () => {
 
       console.log('got ', res.data);
       if (Array.isArray(res.data) && typeof res.data[0] === 'string') {
-        setWord(res.data[0].toLocaleUpperCase().split(''));
+        dispatch(setWord(res.data[0]));
         setLoadStatus(LoadStatus.Ok);
       } else {
         throw new Error('Invalid response');
@@ -55,12 +56,12 @@ const App: FC = () => {
     } catch (err) {
       setLoadStatus(LoadStatus.Error);
     }
-  }
+  }, [dispatch]);
 
   useEffect(() => {
     console.log('using effect for fetchWord');
     fetchWord();
-  }, []);
+  }, [fetchWord]);
 
   useEffect(() => {
     console.log('using effect');
@@ -89,7 +90,7 @@ const App: FC = () => {
   const clickHandler = useCallback(() => {
     console.log('button clicked');
     fetchWord();
-  }, []);
+  }, [fetchWord]);
 
   console.log('render');
   return (
