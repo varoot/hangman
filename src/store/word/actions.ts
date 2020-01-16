@@ -9,7 +9,7 @@ import {
 } from './types';
 
 // Get an API key from https://random-word-api.herokuapp.com/
-const apiKey = '2K22E1EQ';
+const apiKey = 'C3DHP4QS';
 
 export function setWord(status: LoadStatus, word: string): WordSetWordAction {
   return {

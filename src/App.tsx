@@ -14,6 +14,7 @@ import {
 import { fetchWord } from './store/word/actions';
 import { getWordLetters, getWordStatus } from './store/word/selectors';
 import { LoadStatus } from './store/word/types';
+import setHangmanIcon from './utils/setHangmanIcon';
 
 const App: FC = () => {
   const loadStatus = useSelector(getWordStatus);
@@ -43,6 +44,10 @@ const App: FC = () => {
       document.body.removeEventListener('keypress', listener);
     };
   });
+
+  useEffect(() => {
+    setHangmanIcon(incorrectGuesses.length);
+  }, [incorrectGuesses.length]);
 
   const clickHandler = useCallback(() => {
     console.log('button clicked');
