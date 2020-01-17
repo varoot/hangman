@@ -1,7 +1,7 @@
 import { WordAction, WordActionType } from '../word/types';
 import { GuessesAction, GuessesActionType, GuessesState } from './types';
 
-const initialState: GuessesState = {
+export const initialState: GuessesState = {
   guesses: [],
 };
 
