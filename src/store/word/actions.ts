@@ -9,7 +9,11 @@ import {
 } from './types';
 
 // Get an API key from https://random-word-api.herokuapp.com/
-const apiKey = 'C3DHP4QS';
+const apiKey = 'EXKDOKQQ';
+
+export function getApiUrl(): string {
+  return `https://random-word-api.herokuapp.com/word?key=${apiKey}&number=1`;
+}
 
 export function setWord(status: LoadStatus, word: string): WordSetWordAction {
   return {
@@ -30,9 +34,7 @@ export function fetchWord(): ThunkAction<void, RootState, void, WordAction> {
     dispatch(setWord(LoadStatus.Loading, ''));
 
     try {
-      const res = await axios.get<string[]>(
-        `https://random-word-api.herokuapp.com/word?key=${apiKey}&number=1`,
-      );
+      const res = await axios.get<string[]>(getApiUrl());
 
       console.log('got ', res.data);
       if (Array.isArray(res.data) && typeof res.data[0] === 'string') {
